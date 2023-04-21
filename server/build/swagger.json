@@ -1,0 +1,1547 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "REST API Computación_UTM",
+        "description": "<html><body>Esta es la documentación de la API para un sistema de control de los Alumnos, Profesores y Salones de la Carrera de Computación en la UTM. <p>Para poder usar esta API es necesario solicitar el token y con esto poder utilizar los  servicios proporcionados.</p> <br> <p> <b>Autenticación y token de API</b></p><p>El administrador del sistema de la Carrera de Computación de la UTM proporciona el api-token una vez que haya creado y confirmado su cuenta.</p></body></html>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:5000",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Profesores",
+            "description": "API para obtener información de los Profesores de la Carrera de Computación de la UTM"
+        },
+        {
+            "name": "Alumnos",
+            "description": "API para obtener información de los Alumnos de la Carrera de Computación de la UTM"
+        }
+    ],
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/Computacion/Alumnos": {
+            "get": {
+                "tags": [
+                    "Alumnos"
+                ],
+                "summary": "Listado de todos los Alumnos que existen en la Carrera de Computación de la UTM.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los Alumnos que pertenecen a la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuáles son los Alumnos?</strong></em></p>",
+                "operationId": "list",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "matricula": 1,
+                                    "nombre": "Arturo Aquino",
+                                    "edad": 21,
+                                    "sexo": "masculino",
+                                    "Grado": 5
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Alumnos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido",
+                        "tags": [
+                            "Profesor"
+                        ]
+                    }
+                }
+            },
+            "post": {
+                "summary": "Agregar un Alumno a la Carrera de Computación de la UTM.",
+                "description": "<p>Servicio que ingresa un Alumno más al sistema de la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Alumno se agrega?</strong></em></p>",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Alumno",
+                        "in": "body",
+                        "description": "Ingrese los datos del Alumno",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Alumnos"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Alumnos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Alumno creado",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "fieldCount": 0,
+                                    "affectedRows": 1,
+                                    "insertId": 4,
+                                    "serverStatus": 2,
+                                    "warningCount": 0,
+                                    "message": "Hecho",
+                                    "protocol41": true,
+                                    "changedRows": 0
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Alumnos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Alumnos/{matricula}": {
+            "get": {
+                "tags": [
+                    "Alumnos"
+                ],
+                "summary": "Muestra la información de un Alumno de la Carrera de Computación de la UTM dada su matrícula.",
+                "description": "<p>Servicio que devuelve la información detallada de un los Alumno que pertenecen a la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuáles son los Alumnos?</strong></em></p>",
+                "operationId": "listOne",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "matricula": 1,
+                                    "nombre": "Arturo Aquino",
+                                    "edad": 21,
+                                    "sexo": "masculino",
+                                    "Grado": 5
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Alumnos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere matrícula del Alumno",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Alumnos/update/{matricula}": {
+            "put": {
+                "summary": "Actualiza la información de un Alumno de la Carrera de Computación de la UTM dada su matrícula",
+                "description": "<p>Servicio que actualiza la información del Alumno que pertenece a la Carrera de Computación de la UTM dada su matrícula.</p>",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "description": "Ingrese la matrícula...",
+                        "required": true,
+                        "default": 1
+                    },
+                    {
+                        "name": "Alumno",
+                        "in": "body",
+                        "description": "Ingrese la información del Alumno",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Alumnos"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Alumnos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Alumnos/delete/{matricula}": {
+            "delete": {
+                "tags": [
+                    "Alumnos"
+                ],
+                "summary": "Elimina la información de un Alumno de la Carrera de Computación de la UTM dada su matrícula.",
+                "description": "<p>Servicio que elimina la información del Alumno que pertenecen a la Carrera de Computación de la UTM dada su matrícula.</p>",
+                "operationId": "eliminar",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "matricula",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere matrícula del Alumno",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Profesores": {
+            "get": {
+                "tags": [
+                    "Profesores"
+                ],
+                "summary": "Listado de todos los Profesores que existen en la Carrera de Computación.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los Profesores que pertenecen a la Carrera de Computación en la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuáles son los Profesores?</strong></em></p>",
+                "operationId": "list",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "nombre": "Eduardo Soto",
+                                    "edad": 50,
+                                    "sexo": "masculino",
+                                    "materias_impartidas": "Redes de Computadoras",
+                                    "correo": "eduardosoto@gs.utm.mx",
+                                    "password": "12345678",
+                                    "tipo": 2
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Profesores"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Agregar un Profesor a la Carrera de Computación de la UTM.",
+                "description": "<p>Servicio que ingresa un Profesor más al sistema de la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Profesor se agrega?</strong></em></p>",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Profesor",
+                        "in": "body",
+                        "description": "Ingrese los datos del Profesor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Profesores"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Profesor creado",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "fieldCount": 0,
+                                    "affectedRows": 1,
+                                    "insertId": 4,
+                                    "serverStatus": 2,
+                                    "warningCount": 0,
+                                    "message": "Hecho",
+                                    "protocol41": true,
+                                    "changedRows": 0
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Profesores/{id}": {
+            "get": {
+                "tags": [
+                    "Profesores"
+                ],
+                "summary": "Muestra la información de un Profesor de la Carrera de Computación de la UTM dado su id.",
+                "description": "<p>Servicio que devuelve la información detallada de un Profesor perteneciente a la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál es el Profesor?</strong></em></p>",
+                "operationId": "listOne",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1,
+                                    "nombre": "Eduardo Soto",
+                                    "edad": 50,
+                                    "sexo": "masculino",
+                                    "materias_impartidas": 2,
+                                    "correo": "eduardosoto@gs.utm.mx",
+                                    "tipo": 2
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Profesores"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere id del Profesor",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Profesores/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Profesores"
+                ],
+                "summary": "Elimina la información de un Profesor de la Carrera de Computación de la UTM dado su id.",
+                "description": "<p>Servicio que elimina la información del Profesor que pertenecen a la Carrera de Computación de la UTM dado su id.</p>",
+                "operationId": "eliminar",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere id del Profesor",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Profesores/update/{id}": {
+            "put": {
+                "summary": "Actualiza la información de un Profesor de la Carrera de Computación de la UTM dado su id",
+                "description": "<p>Servicio que actualiza la información del Profesor que pertenece a la Carrera de Computación de la UTM dado su id.</p>",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Ingrese el id...",
+                        "required": true,
+                        "default": 1
+                    },
+                    {
+                        "name": "Profesor",
+                        "in": "body",
+                        "description": "Ingrese la información del Profesor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Profesores"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Profesores/Horarios": {
+            "get": {
+                "tags": [
+                    "Horarios Profesores"
+                ],
+                "summary": "Listado de todos los Horarios de los Profesores que existen en la Carrera de Computación.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los Horarios de los Profesores que pertenecen a la Carrera de Computación en la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuáles son los Profesores?</strong></em></p>",
+                "operationId": "list",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_profesor": 3,
+                                    "nombre_profesor": "Eduardo Soto",
+                                    "grado": 7,
+                                    "num_salon": "Sala 2",
+                                    "horas": "10:00am-11:00am"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Horarios_Profesores"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Agregar el Horario de un Profesor a la Carrera de Computación de la UTM.",
+                "description": "<p>Servicio que ingresa el Horario de un Profesor al sistema de la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Horario de Profesor se agrega?</strong></em></p>",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Horario",
+                        "in": "body",
+                        "description": "Ingrese los datos del Horario del Profesor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Horarios_Profesores"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Horarios Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Horario de Profesor creado",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "fieldCount": 0,
+                                    "affectedRows": 1,
+                                    "insertId": 4,
+                                    "serverStatus": 2,
+                                    "warningCount": 0,
+                                    "message": "Hecho",
+                                    "protocol41": true,
+                                    "changedRows": 0
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Profesores/Horarios/{id}": {
+            "get": {
+                "tags": [
+                    "Horarios Profesores"
+                ],
+                "summary": "Muestra la información de los Horarios de un Profesor de la Carrera de Computación de la UTM dado su id.",
+                "description": "<p>Servicio que devuelve los Horarios detallados de un Profesor perteneciente a la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Horario de Profesor se agrega?</strong></em></p>",
+                "operationId": "listOne",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 6,
+                                    "nombre": "Moises Ramírez",
+                                    "materias impartidas": "Computo Reconfigurable",
+                                    "grado": 4,
+                                    "num_salon": "Aula 7",
+                                    "hora": "9:00am-10:00am"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Horarios_Profesores"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere id del Profesor",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Profesores/Horario/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Horarios Profesores"
+                ],
+                "summary": "Elimina el Horario de un Profesor de la Carrera de Computación de la UTM dado su id.",
+                "description": "<p>Servicio que elimina el Horario de un Profesor que pertenecen a la Carrera de Computación de la UTM dado su id.</p>",
+                "operationId": "eliminar",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere id del Profesor",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Profesores/Horarios/update/{id}": {
+            "put": {
+                "summary": "Actualiza el Horario de un Profesor de la Carrera de Computación de la UTM dado su id",
+                "description": "<p>Servicio que actualiza el Horario de un Profesor que pertenece a la Carrera de Computación de la UTM dado su id.</p>",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Ingrese el id...",
+                        "required": true,
+                        "default": 1
+                    },
+                    {
+                        "name": "Horario",
+                        "in": "body",
+                        "description": "Ingrese el Horario del Profesor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Horarios_Profesores"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Horarios Profesores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Alumnos/Horarios": {
+            "get": {
+                "tags": [
+                    "Horarios Alumnos"
+                ],
+                "summary": "Listado de todos los Horarios de los Alumnos que existen en la Carrera de Computación.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los Horarios de los Alumnos que pertenecen a la Carrera de Computación en la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Horario del Alumno se agrega?</strong></em></p>",
+                "operationId": "list",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_alumno": 1,
+                                    "semestre": 1,
+                                    "materia": "Programación Web 1",
+                                    "hora": "9:00am-10:00am"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Horarios_Alumnos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Agregar el Horario de un Alumno de la Carrera de Computación de la UTM.",
+                "description": "<p>Servicio que ingresa el Horario de un Alumno al sistema de la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Horario del Alumno se agrega?</strong></em></p>",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Horario",
+                        "in": "body",
+                        "description": "Ingrese los datos del Horario del Alumno",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Horarios_Alumnos"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Horarios Alumnos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Horario de Alumno creado",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "fieldCount": 0,
+                                    "affectedRows": 1,
+                                    "insertId": 4,
+                                    "serverStatus": 2,
+                                    "warningCount": 0,
+                                    "message": "Hecho",
+                                    "protocol41": true,
+                                    "changedRows": 0
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Alumnos/Horarios/{matricula}": {
+            "get": {
+                "tags": [
+                    "Horarios Alumnos"
+                ],
+                "summary": "Muestra la información de los Horarios de un Alumno de la Carrera de Computación de la UTM dado su matrícula.",
+                "description": "<p>Servicio que devuelve los Horarios detallados de un Alumno perteneciente a la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Horario del Alumno se agrega?</strong></em></p>",
+                "operationId": "listOne",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "matricula": 1,
+                                    "nombre": "Arturo Aquino",
+                                    "materia": "Computo Reconfigurable",
+                                    "hora": "9:00am-10:00am",
+                                    "salon": "Aula 8"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Horarios_Alumnos"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere matrícula del Alumno",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Alumnos/Horarios/delete/{matricula}": {
+            "delete": {
+                "tags": [
+                    "Horarios Alumnos"
+                ],
+                "summary": "Elimina el Horario de un Alumno de la Carrera de Computación de la UTM dada su matrícula.",
+                "description": "<p>Servicio que elimina el Horario de un Alumno que pertenecen a la Carrera de Computación de la UTM dada su matrícula.</p>",
+                "operationId": "eliminar",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere matrícula del Alumno",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Alumnos/Horarios/update/{matricula}": {
+            "put": {
+                "summary": "Actualiza el Horario de un Alumno de la Carrera de Computación de la UTM dada su matrícula",
+                "description": "<p>Servicio que actualiza el Horario de un Alumno que pertenece a la Carrera de Computación de la UTM dada su matrícula.</p>",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Ingrese la matrícula...",
+                        "required": true,
+                        "default": 1
+                    },
+                    {
+                        "name": "Horario",
+                        "in": "body",
+                        "description": "Ingrese el Horario del Alumno",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Horarios_Alumnos"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Horarios Alumnos"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Profesores/Tutorados": {
+            "get": {
+                "tags": [
+                    "Tutorados"
+                ],
+                "summary": "Listado de todos los Tutorados que existen en la Carrera de Computación.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los Tutorados que pertenecen a la Carrera de Computación en la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Horario del Tutorado se agrega?</strong></em></p>",
+                "operationId": "list",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_alu": 1,
+                                    "nombre_alumno": "Arturo Aquino",
+                                    "grado": 5,
+                                    "grupo": "A",
+                                    "materias": "Arquitectura de Computadoras, Compiladores, Ingeniería de Software, Métodos Numéricos, Programación Web 1",
+                                    "prome": 9.2,
+                                    "id_prof": 6,
+                                    "tutor": "Moises Ramírez"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Tutorados"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Agregar la información de un Tutorado de la Carrera de Computación de la UTM.",
+                "description": "<p>Servicio que ingresa información de un Tutorado al sistema de la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Tutorado se agrega?</strong></em></p>",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Tutorado",
+                        "in": "body",
+                        "description": "Ingrese los datos del Tutorado",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Tutorados"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Tutorados"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Información del Tutorado creado",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "fieldCount": 0,
+                                    "affectedRows": 1,
+                                    "insertId": 4,
+                                    "serverStatus": 2,
+                                    "warningCount": 0,
+                                    "message": "Hecho",
+                                    "protocol41": true,
+                                    "changedRows": 0
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Profesores/Tutorados/{id}": {
+            "get": {
+                "tags": [
+                    "Tutorados"
+                ],
+                "summary": "Muestra la información de los Tutorados de la Carrera de Computación de la UTM dada su matrícula.",
+                "description": "<p>Servicio que devuelve la información detallada de un Tutorado perteneciente a la Carrera de Computación de la UTM </p><p>&nbsp;</p>",
+                "operationId": "listOne",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "tutor": "Moises Ramírez",
+                                    "id_alu": 1,
+                                    "nombre_alumno": "Arturo Aquino"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Tutorados"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere matrícula del Alumno",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Profesores/Tutorados/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Tutorados"
+                ],
+                "summary": "Elimina la información de un Tutorado de la Carrera de Computación de la UTM dada su matrícula.",
+                "description": "<p>Servicio que elimina la información de un Tutorado que pertenece a la Carrera de Computación de la UTM dada su matrícula.</p>",
+                "operationId": "eliminar",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere matrícula del Alumno",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Profesores/Tutorados/update/{id}": {
+            "put": {
+                "summary": "Actualiza la información de un Tutorado de la Carrera de Computación de la UTM dada su matrícula",
+                "description": "<p>Servicio que actualiza la información de un Tutorado que pertenece a la Carrera de Computación de la UTM dada su matrícula.</p>",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Ingrese la matrícula...",
+                        "required": true,
+                        "default": 1
+                    },
+                    {
+                        "name": "Tutoria",
+                        "in": "body",
+                        "description": "Ingrese la información de la Tutoría",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Tutorados"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Tutorados"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Tutorias/delete/{id_al}": {
+            "delete": {
+                "tags": [
+                    "Tutoria"
+                ],
+                "summary": "Elimina la información de una Tutoría de un Alumno de la Carrera de Computación de la UTM dada su matrícula.",
+                "description": "<p>Servicio que elimina la información de una Tutoría a un Alumno que pertenece a la Carrera de Computación de la UTM dada su matrícula.</p>",
+                "operationId": "eliminar",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere matrícula del Alumno",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Tutorias/{id_al}": {
+            "get": {
+                "tags": [
+                    "Tutoria"
+                ],
+                "summary": "Muestra la información de una Tutoría a un Alumno de la Carrera de Computación de la UTM dada su matrícula.",
+                "description": "<p>Servicio que devuelve la información detallada de una Tutoría a un Alumno perteneciente a la Carrera de Computación de la UTM </p><p>&nbsp;</p>",
+                "operationId": "listOne",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "tutor": "Moises Ramírez",
+                                    "id_alu": 1,
+                                    "nombre_alumno": "Arturo Aquino"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Tutoria"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere matrícula del Alumno",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Tutorias": {
+            "get": {
+                "tags": [
+                    "Tutoria"
+                ],
+                "summary": "Listado de todas las Tutorias que existen en la Carrera de Computación.",
+                "description": "<p>Servicio que devuelve la información detallada de todas las Tutorías que pertenecen a la Carrera de Computación en la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Tutoría se agrega?</strong></em></p>",
+                "operationId": "list",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_al": 25,
+                                    "nombre_prof": "Erik Ramos",
+                                    "nombre_alumno": "Omar Cruz",
+                                    "hora_tutoria": "12:00pm-1:00pm",
+                                    "fecha": "2022-11-28",
+                                    "comentarios": "x"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Tutoria"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Agregar una Tutoría de la Carrera de Computación de la UTM.",
+                "description": "<p>Servicio que ingresa información de una Tutoría al sistema de la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Tutoría se agrega?</strong></em></p>",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Tutoria",
+                        "in": "body",
+                        "description": "Ingrese los datos de la Tutoría",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Tutoria"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Tutoria"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Información de la Tutoría creada",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "fieldCount": 0,
+                                    "affectedRows": 1,
+                                    "insertId": 4,
+                                    "serverStatus": 2,
+                                    "warningCount": 0,
+                                    "message": "Hecho",
+                                    "protocol41": true,
+                                    "changedRows": 0
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Tutorias/update/{id_al}": {
+            "put": {
+                "summary": "Actualiza la información de una Tutoría de la Carrera de Computación de la UTM dado su id",
+                "description": "<p>Servicio que actualiza la información de una Tutoría dada a un Alumno de la Carrera de Computación de la UTM dado su id.</p>",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Ingrese el id...",
+                        "required": true,
+                        "default": 1
+                    },
+                    {
+                        "name": "Tutor",
+                        "in": "body",
+                        "description": "Ingrese la información del Tutor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Tutoria"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Tutoria"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Alumnos/Tutores": {
+            "get": {
+                "tags": [
+                    "Tutores"
+                ],
+                "summary": "Listado de todos los Tutores que existen en la Carrera de Computación.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los Tutores que pertenecen a la Carrera de Computación en la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Tutor se agrega?</strong></em></p>",
+                "operationId": "list",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_profesor": 2,
+                                    "nombre_profesor": "Erik Ramos",
+                                    "horario_tutoria": "5:00pm-6:00pm",
+                                    "atutorados": "Omar Cruz"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Tutores"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Agregar un Tutor de la Carrera de Computación de la UTM.",
+                "description": "<p>Servicio que ingresa información de un Tutor al sistema de la Carrera de Computación de la UTM </p><p>&nbsp;</p><p><em><strong>¿Cuál Tutor se agrega?</strong></em></p>",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Tutor",
+                        "in": "body",
+                        "description": "Ingrese los datos del Tutor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Tutores"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Tutores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Información del Tutor creado",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "fieldCount": 0,
+                                    "affectedRows": 1,
+                                    "insertId": 4,
+                                    "serverStatus": 2,
+                                    "warningCount": 0,
+                                    "message": "Hecho",
+                                    "protocol41": true,
+                                    "changedRows": 0
+                                }
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/Computacion/Alumnos/Tutores/{id}": {
+            "get": {
+                "tags": [
+                    "Tutores"
+                ],
+                "summary": "Muestra la información de los Tutores de la Carrera de Computación de la UTM dado su id.",
+                "description": "<p>Servicio que devuelve la información detallada de un Tutor perteneciente a la Carrera de Computación de la UTM </p><p>&nbsp;</p>",
+                "operationId": "listOne",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_prof": 1,
+                                    "nombre_profesor": "Erik Ramos",
+                                    "horario_asesoria": "5:00pm-6:00pm",
+                                    "atutorados": "Omar Cruz"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Tutores"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere id del Tutor",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Alumnos/Tutores/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Tutores"
+                ],
+                "summary": "Elimina la información de un Tutor de la Carrera de Computación de la UTM dado su id.",
+                "description": "<p>Servicio que elimina la información de un Tutor que pertenece a la Carrera de Computación de la UTM dado su id.</p>",
+                "operationId": "eliminar",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "requiere id del Tutor",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/Computacion/Alumnos/Tutores/update/{id}": {
+            "put": {
+                "summary": "Actualiza la información de un Tutor de la Carrera de Computación de la UTM dado su id",
+                "description": "<p>Servicio que actualiza la información de un Tutor que pertenece a la Carrera de Computación de la UTM dado su id.</p>",
+                "operationId": "actualizar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Ingrese el id...",
+                        "required": true,
+                        "default": 1
+                    },
+                    {
+                        "name": "Tutor",
+                        "in": "body",
+                        "description": "Ingrese la información del Tutor",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Tutores"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Tutores"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Profesores": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "description": "Describe el nombre de los Profesores"
+                },
+                "edad": {
+                    "type": "number",
+                    "description": "Describe la edad del Profesor"
+                },
+                "materias_impartidas": {
+                    "type": "string",
+                    "description": "Describe la cantidad materias que imparte el Profesor"
+                },
+                "sexo": {
+                    "type": "string",
+                    "description": "Describe el seco del profesor"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Contraseña de acceso al sistema"
+                },
+                "correo": {
+                    "type": "string",
+                    "description": "Correo para acceder al sistema (único del Profesor)"
+                },
+                "tipo": {
+                    "type": "number",
+                    "description": "Describe el puesto de un Profesor"
+                }
+            }
+        },
+        "Alumnos": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "description": "Describe el nombre de los Alumnos"
+                },
+                "edad": {
+                    "type": "number",
+                    "description": "Describe la edad de los Alumnos"
+                },
+                "sexo": {
+                    "type": "string",
+                    "description": "Describe el sexo de los Alumnos"
+                },
+                "grado": {
+                    "type": "number",
+                    "description": "Describe el grado de los Alumnos"
+                },
+                "grupo": {
+                    "type": "string",
+                    "description": "Describe el grupo de los Alumnos"
+                },
+                "materias": {
+                    "type": "string",
+                    "description": "Describe las materias que lleva el Alumno"
+                },
+                "puntaje": {
+                    "type": "string",
+                    "description": "Describe las calificaciones del Alumno"
+                },
+                "promedio": {
+                    "type": "number",
+                    "description": "Describe el promedio del Alumno"
+                }
+            }
+        },
+        "Horarios_Profesores": {
+            "type": "object",
+            "properties": {
+                "id_profesor": {
+                    "type": "number",
+                    "description": "Identificador único de un Profesor de la Carrera de Computación de la UTM"
+                },
+                "nombre_profesor": {
+                    "type": "string",
+                    "description": "Describe el Horario del Profesor"
+                },
+                "grado": {
+                    "type": "number",
+                    "description": "Describe el grado del salón al que el Profesor enseña"
+                },
+                "num_salon": {
+                    "type": "string",
+                    "description": "Describe el nombre del salón para hubicar la clase"
+                },
+                "hora": {
+                    "type": "string",
+                    "description": "Describe las horas de clases impartidas"
+                }
+            }
+        },
+        "Horarios_Alumnos": {
+            "type": "object",
+            "properties": {
+                "id_alumno": {
+                    "type": "number",
+                    "description": "Identificador único de un Profesor de la Carrera de Computación de la UTM"
+                },
+                "semestre": {
+                    "type": "number",
+                    "description": "Describe el grado al que el Alumno pertenece"
+                },
+                "materia": {
+                    "type": "string",
+                    "description": "Describe los nombres de las materias que llevan los Alumnos"
+                },
+                "hora": {
+                    "type": "string",
+                    "description": "Describe las horas de clases impartidas"
+                },
+                "salon": {
+                    "type": "string",
+                    "description": "Describe el nombre del salón para hubicarlo"
+                }
+            }
+        },
+        "Tutorados": {
+            "type": "object",
+            "properties": {
+                "tutor": {
+                    "type": "string",
+                    "description": "Describe el nombre del Tutor del Tutorado"
+                },
+                "id_alu": {
+                    "type": "number",
+                    "description": "Identificador único de un Tutorado de la Carrera de Computación de la UTM"
+                },
+                "nombre_alumno": {
+                    "type": "string",
+                    "description": "Describe el nombre del Tutorado"
+                }
+            }
+        },
+        "Tutoria": {
+            "type": "object",
+            "properties": {
+                "id_al": {
+                    "type": "string",
+                    "description": "Describe la matrícula del Atutorado al Tutor"
+                },
+                "nombre_prof": {
+                    "type": "string",
+                    "description": "Describe el nombre del Tutor al Atutorado"
+                },
+                "nombre_alumno": {
+                    "type": "string",
+                    "description": "Describe el nombre del Atutorado al Tutor"
+                },
+                "hora_tutoria": {
+                    "type": "string",
+                    "description": "Describe la hora en que fue la Tutoría"
+                },
+                "fecha": {
+                    "type": "string",
+                    "description": "Describe la fecha de la Tutoría"
+                },
+                "comentarios": {
+                    "type": "string",
+                    "description": "Describe lo mencionado por el Atutorado en la Tutoría"
+                }
+            }
+        },
+        "Tutores": {
+            "type": "object",
+            "properties": {
+                "id_prof": {
+                    "type": "number",
+                    "description": "Identificador único de un Tutor para el Atutorado de la Carrera de Computación de la UTM"
+                },
+                "nombre_profesor": {
+                    "type": "string",
+                    "description": "Describe el nombre del Tuto al Atutorado"
+                },
+                "horario_asesoria": {
+                    "type": "string",
+                    "description": "Describe las horas libres del Tutor para el Atutorado"
+                },
+                "tutorados": {
+                    "type": "string",
+                    "description": "Describe los Tutorados del Tutor"
+                }
+            }
+        }
+    }
+}
